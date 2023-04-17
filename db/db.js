@@ -20,8 +20,10 @@ const config = require(__dirname + "/../config/config.json")[env];
 // );
 
 if (config.use_env_variable) {
+   console.log("Producción");
   sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {
+   console.log("Desarrollo");
   sequelize = new Sequelize(
     config.database,
     config.username,
@@ -32,7 +34,7 @@ if (config.use_env_variable) {
 
 module.exports = async () => {
   const dbConnection = await sequelize.authenticate();
-  const database = process.env.MYSQL_DATABASE || config.development.database;
-  console.log(`Successfully connected to '${database}' database`);
+  //const database = process.env.MYSQL_DATABASE || config.development.database;
+  //console.log(`Successfully connected to '${database}' database`);
   return dbConnection;
 };
